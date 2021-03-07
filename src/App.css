@@ -19,6 +19,7 @@ body {
   margin-bottom: 20px;
 }
 
+
 .app__stats {
   display: flex;
   justify-content: space-between;
@@ -51,5 +52,23 @@ body {
 @media (max-width: 990px) {
   .app {
     flex-direction: column;
+  }
+  .app__stats{
+    flex-direction: column;
+  }
+  
+  
+}
+
+@media (max-width: 375px){
+  .app__dropdown{
+    width: 100% !important;
+  }
+  .app__header{
+    flex-direction: column;
+  }
+  .app__header h1{
+    margin-bottom: 20px;
+
   }
 }
