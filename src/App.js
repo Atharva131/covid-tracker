@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {  MDBContainer, MDBFooter } from "mdbreact";
 import "./App.css";
 import {
   MenuItem,
@@ -95,74 +96,86 @@ function App() {
     return "Worldwide";
 }
   return (
-    <div className="app">
-      <div className="app__left">
-        <div className="app__header">
-          <h1>Covid-19 Tracker</h1>
-          <FormControl className="app__dropdown">
-            <Select
-              variant="outlined"
-              onChange={onCountryChange}
-              value={country}
-            >
-              <MenuItem value="worldwide">Worldwide</MenuItem>
-              {countries.map((country) => (
-                <MenuItem value={country.value}>{country.name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
+    <div>
+      <div className="app">
+        <div className="app__left">
+          <div className="app__header">
+            <h1>Covid-19 Tracker</h1>
+            <FormControl className="app__dropdown">
+              <Select
+                variant="outlined"
+                onChange={onCountryChange}
+                value={country}
+              >
+                <MenuItem value="worldwide">Worldwide</MenuItem>
+                {countries.map((country) => (
+                  <MenuItem value={country.value}>{country.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
 
-        <div className="app__stats">
-          <InfoBox
-            isRed
-            active={casesType === "cases"}
-            className="infoBox__cases"
-            onClick={(e) => setCasesType("cases")}
-            title="Coronavirus Cases"
-            total={prettyPrintTotal(countryInfo.cases)}
-            cases={prettyPrintStat(countryInfo.todayCases)}
-            isloading={isLoading}
-          />
-          <InfoBox
-            active={casesType === "recovered"}
-            className="infoBox__recovered"
-            onClick={(e) => setCasesType("recovered")}
-            title="Recovered"
-            total={prettyPrintTotal(countryInfo.recovered)}
-            cases={prettyPrintStat(countryInfo.todayRecovered)}
-            isloading={isLoading}
-          />
-          <InfoBox
-            isGrey
-            active={casesType === "deaths"}
-            className="infoBox__deaths"
-            onClick={(e) => setCasesType("deaths")}
-            title="Deaths"
-            total={prettyPrintTotal(countryInfo.deaths)}
-            cases={prettyPrintStat(countryInfo.todayDeaths)}
-            isloading={isLoading}
+          <div className="app__stats">
+            <InfoBox
+              isRed
+              active={casesType === "cases"}
+              className="infoBox__cases"
+              onClick={(e) => setCasesType("cases")}
+              title="Coronavirus Cases"
+              total={prettyPrintTotal(countryInfo.cases)}
+              cases={prettyPrintStat(countryInfo.todayCases)}
+              isloading={isLoading}
+            />
+            <InfoBox
+              active={casesType === "recovered"}
+              className="infoBox__recovered"
+              onClick={(e) => setCasesType("recovered")}
+              title="Recovered"
+              total={prettyPrintTotal(countryInfo.recovered)}
+              cases={prettyPrintStat(countryInfo.todayRecovered)}
+              isloading={isLoading}
+            />
+            <InfoBox
+              isGrey
+              active={casesType === "deaths"}
+              className="infoBox__deaths"
+              onClick={(e) => setCasesType("deaths")}
+              title="Deaths"
+              total={prettyPrintTotal(countryInfo.deaths)}
+              cases={prettyPrintStat(countryInfo.todayDeaths)}
+              isloading={isLoading}
+            />
+          </div>
+          
+          <Map
+            countries={mapCountries}
+            center={mapCenter}
+            zoom={zoom}
+            casesType={casesType}
           />
         </div>
-        
-        <Map
-          countries={mapCountries}
-          center={mapCenter}
-          zoom={zoom}
-          casesType={casesType}
-        />
+        <Card className="app__right">
+          <CardContent>
+            <h3>Live Cases by Country</h3>
+            <Table countries={tableData} />
+            <h3 className="app__graphTitle">
+              {search(country,countries)} New {casesType}</h3>
+            <LineGraph className="app__graph" casesType={casesType} countryCode = {country} />
+          </CardContent>
+          
+        </Card>
       </div>
-      <Card className="app__right">
-        <CardContent>
-          <h3>Live Cases by Country</h3>
-          <Table countries={tableData} />
-          <h3 className="app__graphTitle">
-            {search(country,countries)} New {casesType}</h3>
-          <LineGraph className="app__graph" casesType={casesType} countryCode = {country} />
-        </CardContent>
-        
-      </Card>
-    </div>
+      <div className="footer-copyright text-center py-3">
+    <MDBFooter color="#ff4d4d">
+    <MDBContainer fluid>
+             &copy; Atharva Ghodmare 
+    </MDBContainer>
+
+    </MDBFooter>
+    
+  </div>
+    
+  </div>
   );
 }
 

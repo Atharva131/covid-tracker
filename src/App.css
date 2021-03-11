@@ -49,6 +49,11 @@ body {
   flex-grow: 1;
 }
 
+.footer-copyright{
+  padding: 20px !important;
+  margin-block-start: 20px !important;
+}
+
 @media (max-width: 990px) {
   .app {
     flex-direction: column;
